@@ -1,0 +1,19 @@
+{
+  "name": "breakout-pure-es6",
+  "version": "1.0.0",
+  "description": "Classic breakout game written in pure ES6.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mandriv/breakout-pure-es6.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mandriv/breakout-pure-es6/issues"
+  },
+  "homepage": "https://github.com/mandriv/breakout-pure-es6#readme"
+}

@@ -165,10 +165,9 @@ gulp.task('critical', ['html:build', 'sass:build'], () => {
 });
 
 
-gulp.task('watch', ['clean', 'html', 'scripts', 'assets', 'sass', 'connect'], () => {
+gulp.task('watch', [], () => {
   gulp.watch(['src/**/*.html'], ['html']);
   gulp.watch(['src/**/*.js'], ['scripts']);
-  gulp.watch(['src/scripts/util/worker.js', 'src/scripts/util/cache-polyfill.js'], ['worker']);
   gulp.watch(['src/**/*.scss'], ['sass']);
 });
 

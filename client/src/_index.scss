@@ -2,6 +2,10 @@
   @include desktop {
     display: none;
   }
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex: 1;
 }
 
 #desktop-view {

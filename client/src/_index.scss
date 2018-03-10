@@ -1,0 +1,17 @@
+#root {
+  @include desktop {
+    display: none;
+  }
+}
+
+#desktop-view {
+  @include mobile {
+    display: none;
+  }
+  padding: 10%;
+
+  h6 {
+    text-align: center;
+  }
+
+}

@@ -1,3 +1,5 @@
+import Router from './util/Router';
+
 function ready(fn) {
   if (document.attachEvent ? document.readyState === 'complete' : document.readyState !== 'loading') {
     fn();
@@ -7,5 +9,6 @@ function ready(fn) {
 }
 
 ready(() => {
-  console.log('JS ready!');
+  const router = new Router();
+  router.navigate(router.mainMenu);
 });

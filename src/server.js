@@ -1,16 +1,13 @@
 import http from 'http';
-import path from 'path';
 import express from 'express';
 import SocketIO from 'socket.io';
 import uuidv4 from 'uuid/v4';
 
-import checkEnv from './checkEnv'; // eslint-disable-line
+import checkEnv from './checkEnv';
 
 const app = express();
 const server = http.Server(app);
 const io = new SocketIO(server);
-console.log(__dirname);
-app.use('/', express.static(path.join(__dirname, '..', 'public')))
 
 const getFirstSocket = (room) => {
   const id = Object.keys(io.sockets.adapter.rooms[room].sockets)[0];
@@ -37,7 +34,7 @@ io.on('connection', (socket) => {
     }
   });
   socket.on('angle', (data) => {
-    io.in(data.roomID).emit('angle', data.angle);
+    socket.to(data.roomID).emit('angle', data.angle);
   });
 });
 

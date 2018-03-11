@@ -34,7 +34,7 @@ io.on('connection', (socket) => {
     }
   });
   socket.on('angle', (data) => {
-    io.in(data.roomID).emit('angle', data.angle);
+    socket.to(data.roomID).emit('angle', data.angle);
   });
 });
 

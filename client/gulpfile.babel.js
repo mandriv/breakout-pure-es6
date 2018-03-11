@@ -59,7 +59,7 @@ gulp.task('html', ['clean:html'], () => (
     .pipe(connect.reload())
 ));
 
-gulp.task('scripts', ['clean:scripts'], () => (
+gulp.task('scripts', [], () => (
   bundler
     .bundle()
     .pipe(source('scripts.js'))
@@ -93,6 +93,12 @@ gulp.task('connect', () => {
     livereload: true,
     port: 3000,
   });
+});
+
+gulp.task('watch', [], () => {
+  gulp.watch(['src/**/*.html'], ['html']);
+  gulp.watch(['src/**/*.js'], ['scripts']);
+  gulp.watch(['src/**/*.scss'], ['sass']);
 });
 
 // Build task - gulp build
@@ -129,14 +135,14 @@ gulp.task('scripts:build', ['clean:build'], () => (
 ));
 
 // 5. copy assets
-gulp.task('assets:build', ['clean'], () => {
+gulp.task('assets:build', ['clean:build'], () => {
   gulp.src('./assets/*', { base: './assets' })
     .pipe(gulp.dest(dirs.dist));
 });
 
 // 5. Compile sass to css
 gulp.task('sass:build', ['clean:build'], () => (
-  gulp.src('src/sass/**/*.scss')
+  gulp.src('src/**/*.scss')
     .pipe(sass().on('error', sass.logError))
     .pipe(concat('styles.css'))
     .pipe(autoprefixer({
@@ -149,29 +155,7 @@ gulp.task('sass:build', ['clean:build'], () => (
     .pipe(connect.reload())
 ));
 
-// 6. Inline critial styles
-gulp.task('critical', ['html:build', 'sass:build'], () => {
-  critical.generate({
-    inline: true,
-    base: 'dist/',
-    src: 'index.html',
-    dest: 'dist/index.html',
-    css: ['dist/styles.css'],
-    width: 1300,
-    height: 900,
-    minify: true,
-    extract: true,
-  });
-});
-
-
-gulp.task('watch', [], () => {
-  gulp.watch(['src/**/*.html'], ['html']);
-  gulp.watch(['src/**/*.js'], ['scripts']);
-  gulp.watch(['src/**/*.scss'], ['sass']);
-});
-
 // The good stuff
 gulp.task('serve', ['clean', 'html', 'scripts', 'assets', 'sass', 'connect', 'watch']);
-gulp.task('build', ['clean:build', 'html:build', 'scripts:build', 'assets:build', 'sass:build', 'critical', 'test-build']);
+gulp.task('build', ['clean:build', 'html:build', 'scripts:build', 'assets:build', 'sass:build']);
 gulp.task('default', ['serve']);

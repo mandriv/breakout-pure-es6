@@ -1,7 +1,10 @@
 const GameTemplate = model => (`
-  <div class="game">
-    <h1>Game screen</h1>
-  </div>
+  <canvas
+    id="game-canvas"
+    width="${model.canvasWidth}"
+    height="${model.canvasHeight}"
+  >
+  </canvas>
 `);
 
 export default GameTemplate;

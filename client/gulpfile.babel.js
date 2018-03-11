@@ -59,7 +59,7 @@ gulp.task('html', ['clean:html'], () => (
     .pipe(connect.reload())
 ));
 
-gulp.task('scripts', [], () => (
+gulp.task('scripts', ['clean:scripts'], () => (
   bundler
     .bundle()
     .pipe(source('scripts.js'))

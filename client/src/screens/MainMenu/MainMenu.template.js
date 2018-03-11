@@ -10,7 +10,6 @@ const MainMenuTemplate = model => (`
     <div class="footer">
       <p>Made with <3 by <a href="https://github.com/mandriv/" target="_blank">@mandriv</a></p>
     </div>
-    <div
   </div>
 `);
 

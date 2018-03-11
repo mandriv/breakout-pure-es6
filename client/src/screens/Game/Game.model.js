@@ -270,13 +270,13 @@ export default class GameModel {
       }
       // Top wall collision, sorry for nesting
       if (!found) {
-        if (this.paddles.length === 1) {
-          if ((y1 - ball.radius) <= 0) {
+        if ((y1 - ball.radius) <= 0) {
+          if (this.paddles.length === 1) {
             vy1 = -vy1;
             found = true;
+          } else {
+            this.endGameCallback(true);
           }
-        } else {
-          this.endGameCallback(true);
         }
       }
 

@@ -227,7 +227,7 @@ export default class GameModel {
             ||
             (x1 >= paddle.x
             && x1 <= paddle.x + this.paddleWidth
-            && y1 - ball.radius <= paddle.y
+            && y1 - ball.radius <= paddle.y + this.paddleHeight
             && paddle.type === PADDLE_TYPE_OPPONENT
             )) {
             vx1 = -(vx1 + paddle.velocity); // add paddle vector

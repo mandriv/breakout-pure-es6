@@ -8,7 +8,7 @@ const MainMenuTemplate = model => (`
       <button id="main-menu-bottom-button">${model.bottomButton.text}</button>
     </div>
     <div class="footer">
-      <p>Made with <3 by @mandriv</p>
+      <p>Made with <3 by <a href="https://github.com/mandriv/" target="_blank">@mandriv</a></p>
     </div>
     <div
   </div>

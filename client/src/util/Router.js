@@ -10,21 +10,28 @@ export default class Router {
 
   root = document.getElementById('root');
 
-  updateRoot = (controller) => {
-    this.root.innerHTML = controller.template(controller.model);
-    controller.init();
+  currentController = null;
+
+  updateView = (controller, forceInit) => {
+    if (controller) {
+      this.currentController = controller;
+    }
+    this.root.innerHTML = this.currentController.template(this.currentController.model);
+    if (forceInit) {
+      controller.init();
+    }
   }
 
   navigate = (route) => {
     switch (route) {
       case this.mainMenu:
-        this.updateRoot(new MainMenuController(this));
+        this.updateView(new MainMenuController(this), true);
         break;
       case this.singlePlayer:
-        this.updateRoot(new SinglePlayerController(this));
+        this.updateView(new SinglePlayerController(this), true);
         break;
       case this.multiPlayer:
-        this.updateRoot(new MultiPlayerController(this));
+        this.updateView(new MultiPlayerController(this), true);
         break;
       default:
         console.error('Invalid route param!');

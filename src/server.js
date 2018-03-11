@@ -4,18 +4,18 @@ import express from 'express';
 import SocketIO from 'socket.io';
 import uuidv4 from 'uuid/v4';
 
-import checkEnv from './checkEnv';
+import checkEnv from './checkEnv'; // eslint-disable-line
 
 const app = express();
 const server = http.Server(app);
 const io = new SocketIO(server);
-
-app.use('/', express.static(path.join(__dirname, 'public')))
+console.log(__dirname);
+app.use('/', express.static(path.join(__dirname, '..', 'public')))
 
 const getFirstSocket = (room) => {
   const id = Object.keys(io.sockets.adapter.rooms[room].sockets)[0];
   return io.sockets.connected[id];
-}
+};
 
 io.on('connection', (socket) => {
   socket.on('join-matchmaking', () => {

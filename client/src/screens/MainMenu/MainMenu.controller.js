@@ -23,7 +23,7 @@ export default class MainMenuController {
     });
 
     this.selectors.bottomButton.addEventListener('click', () => {
-      this.router.navigate(this.router.multiPlayer);
+      this.router.navigate(this.router.multiPlayerLobby);
     });
   }
 

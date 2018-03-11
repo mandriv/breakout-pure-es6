@@ -16,7 +16,6 @@ export default class GameController {
   gameLoop = null;
 
   constructor(router) {
-    console.log('hey');
     this.router = router;
     this.template = template;
     this.model = new Model();

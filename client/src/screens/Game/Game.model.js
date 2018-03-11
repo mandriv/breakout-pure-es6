@@ -45,6 +45,8 @@ export default class GameModel {
     this.bricks = [];
     this.balls = [];
     this.paddles = [];
+
+    this.endGameCallback = () => null;
   }
 
   loadSinglePlayer = () => {
@@ -184,23 +186,30 @@ export default class GameModel {
             }
             // Remove brick
             this.bricks = this.bricks.filter((b, index) => index !== i);
+            if (this.bricks.length === 0 && this.paddles.length !== 1) {
+              this.endGameCallback(true);
+            }
             found = true;
             break;
           }
         }
       }
-      // Top wall collision
+      // Top wall collision, sorry for nesting
       if (!found) {
-        if ((y1 - ball.radius) <= 0) {
-          vy1 = -vy1;
-          found = true;
+        if (this.paddles.length === 1) {
+          if ((y1 - ball.radius) <= 0) {
+            vy1 = -vy1;
+            found = true;
+          }
+        } else {
+          this.endGameCallback(true);
         }
       }
 
       // Bottom wall collision
       if (!found) {
         if ((y1 + ball.radius) >= this.canvasHeight) {
-          console.log('lose!');
+          this.endGameCallback(false);
         }
       }
 
@@ -256,6 +265,10 @@ export default class GameModel {
       occurs: false,
       type: '',
     };
+  }
+
+  onGameEnd = (callback) => {
+    this.endGameCallback = callback;
   }
 
 }

@@ -40,7 +40,21 @@ export default class SinglePlayerController {
       }
     }, true);
 
+
+
     this.start();
+    this.model.onGameEnd((win) => {
+      this.stop();
+      if (win) {
+        this.selectors.modalMsg.textContent = 'You won the game!';
+      } else {
+        this.selectors.modalMsg.textContent = 'You lost :(';
+      }
+      this.selectors.modelBtn.addEventListener('click', () => {
+        this.router.navigate(this.router.mainMenu);
+      });
+      this.selectors.modal.style.visibility = 'visible';
+    });
   }
 
   start = () => {
@@ -49,6 +63,10 @@ export default class SinglePlayerController {
       this.model.update();
       this.draw();
     }, this.model.deltaT);
+  }
+
+  stop = () => {
+    clearInterval(this.gameLoop);
   }
 
   draw = () => {

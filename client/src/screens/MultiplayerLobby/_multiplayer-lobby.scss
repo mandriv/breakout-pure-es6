@@ -1,0 +1,12 @@
+.mp-lobby {
+  @include flex-center;
+  background-color: $color-backgroud;
+  width: 100vw;
+  .title-container {
+    padding: 10%;
+    .title {
+      text-align: center;
+    }
+  }
+
+}

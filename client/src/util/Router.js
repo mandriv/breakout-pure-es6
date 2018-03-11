@@ -1,12 +1,14 @@
 import MainMenuController from '../screens/MainMenu/MainMenu.controller';
 import SinglePlayerController from '../screens/Game/SinglePlayer/SinglePlayer.controller';
 import MultiPlayerController from '../screens/Game/MultiPlayer/MultiPlayer.controller';
+import MultiplayerLobbyController from '../screens/MultiplayerLobby/MultiplayerLobby.controller';
 
 export default class Router {
 
   mainMenu = '/';
   singlePlayer = '/game';
   multiPlayer = '/multiplayer';
+  multiPlayerLobby = '/mp_lobby';
 
   root = document.getElementById('root');
 
@@ -22,7 +24,7 @@ export default class Router {
     }
   }
 
-  navigate = (route) => {
+  navigate = (route, navigationParams) => {
     switch (route) {
       case this.mainMenu:
         this.updateView(new MainMenuController(this), true);
@@ -31,7 +33,10 @@ export default class Router {
         this.updateView(new SinglePlayerController(this), true);
         break;
       case this.multiPlayer:
-        this.updateView(new MultiPlayerController(this), true);
+        this.updateView(new MultiPlayerController(this, navigationParams.socket, navigationParams.roomID), true);
+        break;
+      case this.multiPlayerLobby:
+        this.updateView(new MultiplayerLobbyController(this));
         break;
       default:
         console.error('Invalid route param!');

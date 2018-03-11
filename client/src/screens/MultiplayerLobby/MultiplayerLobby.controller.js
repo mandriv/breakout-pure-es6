@@ -14,7 +14,7 @@ export default class MutliplayerLobbyController {
     this.router = router;
     this.template = template;
     this.model = new Model();
-    this.socket = io('https://breakout-game-cs317.herokuapp.com');
+    this.socket = io('https://breakout-game-cs317.herokuapp.com', { forceNew: true });
     this.socket.on('waitlist-empty', this.onEmptyWaitlist);
     this.socket.on('game-found', this.onGameFound);
     this.socket.emit('join-matchmaking');

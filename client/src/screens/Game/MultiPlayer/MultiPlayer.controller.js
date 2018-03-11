@@ -1,23 +1,21 @@
-import Model from './MultiPlayer.model';
-import template from '../Game.template';
-import Selectors from '../Game.selectors';
+import GameController from '../Game.controller';
 
-export default class MultiPlayerController {
-
-  router = null;
-  model = null;
-  selectors = null;
-  template = null;
-
-  constructor(router) {
-    this.router = router;
-    this.template = template;
-    this.model = new Model();
-  }
+export default class MultiPlayerController extends GameController {
 
   init = () => {
-    this.selectors = new Selectors();
-    // Initialize listeners
+    this.initialize();
+
+    this.model.loadSinglePlayer();
+
+    window.addEventListener('deviceorientation', (ev) => {
+      if (window.innerHeight > window.innerWidth) {
+        this.model.paddles[0].angle = Math.round(ev.gamma);
+      } else {
+        this.model.paddles[0].angle = Math.round(ev.beta);
+      }
+    }, true);
+
+    this.start();
   }
 
 }

@@ -1,3 +1,7 @@
+import Model from './Game.model';
+import template from './Game.template';
+import Selectors from './Game.selectors';
+
 export default class GameController {
 
   // Set up in constructor
@@ -10,6 +14,34 @@ export default class GameController {
   ctx = null;
   // Game loop
   gameLoop = null;
+
+  constructor(router) {
+    console.log('hey');
+    this.router = router;
+    this.template = template;
+    this.model = new Model();
+  }
+
+  initialize = () => {
+    this.selectors = new Selectors();
+    this.canvas = this.selectors.canvas;
+    this.ctx = this.canvas.getContext('2d', { alpha: false });
+    this.ctx.fillStyle = this.model.backgroudColour;
+    this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+
+    this.model.onGameEnd((win) => {
+      this.stop();
+      if (win) {
+        this.selectors.modalMsg.textContent = 'You won the game!';
+      } else {
+        this.selectors.modalMsg.textContent = 'You lost :(';
+      }
+      this.selectors.modelBtn.addEventListener('click', () => {
+        this.router.navigate(this.router.mainMenu);
+      });
+      this.selectors.modal.style.visibility = 'visible';
+    });
+  }
 
   start = () => {
     this.gameLoop = setInterval(() => {

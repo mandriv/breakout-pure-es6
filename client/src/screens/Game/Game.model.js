@@ -295,6 +295,21 @@ export default class GameModel {
         vy: vy1,
       };
     });
+
+    // Balls collision
+    if (this.balls.length > 1) {
+      for (let i = 0; i < this.balls.length; i += 1) {
+        for (let j = i + 1; j < this.balls.length; j += 1) {
+          if (this.doesBallsColide(this.balls[i], this.balls[j])) {
+            const { vx, vy } = this.balls[i];
+            this.balls[i].vx = this.balls[j].vx;
+            this.balls[i].vy = this.balls[j].vy;
+            this.balls[j].vx = vx;
+            this.balls[j].vy = vy;
+          }
+        }
+      }
+    }
   }
 
   getBallCollisionWithBrick = (ball, brick) => {
@@ -339,6 +354,12 @@ export default class GameModel {
       occurs: false,
       type: '',
     };
+  }
+
+  // ;)
+  doesBallsColide = (ball1, ball2) => {
+    const distance = Math.sqrt(((ball1.x - ball2.x) ** 2) + ((ball1.y - ball2.y) ** 2));
+    return distance <= ball1.radius + ball2.radius;
   }
 
   onGameEnd = (callback) => {

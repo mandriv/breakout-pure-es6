@@ -103,6 +103,80 @@ export default class GameModel {
     });
   }
 
+  loadMultiPlayer = () => {
+    // Add bricks
+    for (let i = 16; i < 20; i += 1) {
+      for (let j = 0; j < UNITS_PER_ROW; j += 1) {
+        let colour;
+        switch (i) {
+          case 16:
+            colour = BRICK_RED_COLOUR;
+            break;
+          case 17:
+            colour = BRICK_BLUE_COLOUR;
+            break;
+          case 18:
+            colour = BRICK_GREEN_COLOUR;
+            break;
+          case 19:
+            colour = BRICK_YELLOW_COLOUR;
+            break;
+          default:
+            colour = BRICK_RED_COLOUR;
+        }
+        this.bricks.push({
+          colour,
+          outline: BRICK_OUTLINE_COLOUR,
+          x: j * UNIT,
+          y: i * UNIT,
+          width: this.brickWidth,
+          height: this.brickHeight,
+        });
+      }
+    }
+    // Add paddles
+    this.paddles.push({
+      x: Math.round(((UNITS_PER_ROW - PADDLE_WIDTH) / 2) * UNIT),
+      y: (UNITS_PER_COL - 2) * UNIT,
+      width: this.paddleWidth,
+      height: this.paddleHeight,
+      colour: PADDLE_COLOUR,
+      velocity: 0,
+      angle: 0,
+      type: PADDLE_TYPE_MINE,
+    });
+
+    this.paddles.push({
+      x: Math.round(((UNITS_PER_ROW - PADDLE_WIDTH) / 2) * UNIT),
+      y: 1 * UNIT,
+      width: this.paddleWidth,
+      height: this.paddleHeight,
+      colour: PADDLE_COLOUR,
+      velocity: 0,
+      angle: 0,
+      type: PADDLE_TYPE_OPPONENT,
+    });
+
+    // Add balls
+    this.balls.push({
+      x: Math.round((UNITS_PER_ROW * UNIT) / 2),
+      y: 14 * UNIT,
+      radius: BALL_RADIUS * UNIT,
+      vx: 0,
+      vy: -BALL_INITIAL_SPEED,
+      colour: BALL_COLOUR,
+    });
+
+    this.balls.push({
+      x: Math.round((UNITS_PER_ROW * UNIT) / 2),
+      y: 21 * UNIT,
+      radius: BALL_RADIUS * UNIT,
+      vx: 0,
+      vy: BALL_INITIAL_SPEED,
+      colour: BALL_COLOUR,
+    });
+  }
+
   update = () => {
     this.updatePaddles();
     this.updateBalls();

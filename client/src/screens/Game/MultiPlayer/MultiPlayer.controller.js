@@ -5,7 +5,7 @@ export default class MultiPlayerController extends GameController {
   init = () => {
     this.initialize();
 
-    this.model.loadSinglePlayer();
+    this.model.loadMultiPlayer();
 
     window.addEventListener('deviceorientation', (ev) => {
       if (window.innerHeight > window.innerWidth) {

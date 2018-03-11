@@ -10,7 +10,7 @@ const app = express();
 const server = http.Server(app);
 const io = new SocketIO(server);
 
-app.use('/', express.static(path.join(__dirname, 'public')));
+app.use('/', express.static(path.join(__dirname, 'public')))
 
 const getFirstSocket = (room) => {
   const id = Object.keys(io.sockets.adapter.rooms[room].sockets)[0];
